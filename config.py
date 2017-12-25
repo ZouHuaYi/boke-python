@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+# coding:utf8
 
 DEBUG = True 		# 启动Flask的Debug模式
 DRIVE = 'mysql'
@@ -8,7 +8,9 @@ LOCALHOST = 'localhost'
 PORT = 3306
 DATABASE = 'boke_py'
 
-
+SECRET_KEY = '1jdaIjkhA81H9d0nNdaihKdj'
+ADMIN = 'zhy'
+PW = '123456'
 
 SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(DRIVE,USUER,PASSWD,LOCALHOST,PORT,DATABASE)
 

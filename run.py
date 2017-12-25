@@ -10,52 +10,51 @@ __author__="zhy"
 __mtime__ = '2017/12/18'
 """
 
-from flask import *
-from flask_sqlalchemy import SQLAlchemy
-import MySQLdb
+from flask import Flask,render_template,request,session,redirect,url_for
 from vcode import create_vcode_img
 import config
 import StringIO
+from exit import db
 
 app = Flask(__name__)
 app.config.from_object(config) 
-
-#实例化
-db = SQLAlchemy(app)
-
-class User(db.Model):
-	"""用户数据表"""
-	__tablename__ = 'user'
-	id = db.Column(db.Integer,primary_key = True)
-	username = db.Column(db.String(80),nullable = False,unique = True)
-	password = db.Column(db.String(32),nullable = False)
-
-	def __repr__(self):
-		return '<User %r>' % self.username
-
-db.create_all()
+db.init_app(app)
 
 #页面路由部分
 @app.route('/')
 def index():
-	return "Hello World!"
+	return 'hello word'
 
-@app.route('/login/',)
+@app.route('/login/')
 def login():
 	return render_template('www/login.html')
 
 #验证登录
-@app.route('/admin/', methods=['post'])
+@app.route('/admin/',methods=['GET','POST'])
 def admin():
-	data = request.form
-	
-	
+	if request.method =='POST':
+		data = request.form
+		if data['username']== app.config['ADMIN'] and data['password']== app.config['PW'] and session.get('vcode') == data['vcode']:
+			session['username'] = app.config['ADMIN']
+			return render_template('www/list_item.html')
+		else:	
+			return render_template('www/login.html')
+	else:
+		if session.get('username') == app.config['ADMIN']:
+			return redirect(url_for('login'))
+		else:
+			return render_template('www/list_item.html')	
 
+#添加文章页面
+@app.route('/additem/')
+def add_item():
+	return render_template('www/add_item.html')
 
-	
-	print data['username']
-	return render_template('www/login.html')
-
+#导航钩子
+@app.before_request
+def login_bc():
+	if session.get('username') is None:
+		return redirect(url_for('login'))	
 #验证码
 @app.route('/vcode/')
 def v_code():
@@ -66,8 +65,8 @@ def v_code():
 	buf_str = buf.getvalue() 
 	response = app.make_response(buf_str) 
 	response.headers['Content-Type'] = 'image/jpeg' 
+	session['vcode'] = strs
 	return response
-
 
 if __name__ == '__main__':
 	app.run()

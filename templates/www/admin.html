@@ -1,0 +1,57 @@
+{% extends 'www/layout.html' %}
+{% block body %}
+<div id="admin">
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand logo" href="{{url_for('admin')}}"><img width="80px" src="{{url_for('static',filename = 'img/logo.jpg')}}"></a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="{{url_for('admin')}}">首页<span class="sr-only">(current)</span></a></li>
+	        <li><a href="分类页">文章分类</a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	      	<li>
+	  		 <form class="navbar-form navbar-left">
+		        <div class="form-group">
+		          <input type="text" class="form-control" name="search" placeholder="请输入关键字">
+		        </div>
+		        <button type="submit" class="btn btn-default">搜索</button>
+		      </form>
+	      	</li>
+	        <li><a href="#">登录</a></li>
+	       	<li><a href="#">退出</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+	<div class="box">
+		<div class="container-fluid">
+			<div class="list-group col-lg-2 col-md-2" >
+				<h3 class="list-group-item active">全部分类</h3>
+			  <a href="#" class="list-group-item">MySQL</a>
+			  <a href="#" class="list-group-item">PHP</a>
+			  <a href="#" class="list-group-item">JavaScript</a>
+			  <a href="#" class="list-group-item">Python</a>
+			  <a href="#" class="list-group-item">HTML+CSS</a>
+			</div>
+			<div class="table-list col-lg-10 col-md-10">
+				<nav class="navbar navbar-default">
+				  <div class="container-fluid">
+				    <div class="collapse navbar-collapse">
+				      <ul class="nav navbar-nav">
+				        <li><a class="list-head" href="javascript:;">{% block adtitle %}{% endblock %}</a></li>
+				      </ul>
+				      <ul class="nav navbar-nav navbar-right">
+				        <li><a href="#">全选</a></li>
+				       	<li><a href="#" class="btn btn-default">添加</a></li>
+				      </ul>
+				    </div>
+				  </div>
+				</nav>
+			{% block adbody %} {% endblock %}
+		</div>
+	</div>
+</div>
+{% endblock %}
