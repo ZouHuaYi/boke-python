@@ -4,7 +4,7 @@
 <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='editor/ueditor.all.min.js') }}"> </script>
 <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='editor/lang/zh-cn/zh-cn.js') }}"></script>
 {% endblock %}
-{% block adtitle %}添加文章{% endblock %}
+{% block adtitle %}修改文章{% endblock %}
 
 {% block adbody %}
 <div class="container-fluid">
@@ -12,37 +12,37 @@
 		<div class="form-left col-md-9">
 		  <div class="form-group">
 		    <label>文章标题</label>
-		    <input type="text" name="title" value="文章标题" class="form-control" placeholder="标题">
+		    <input type="text" name="title" value="{{ aitem.title }}" class="form-control" placeholder="标题">
 		  </div>
 		  <div class="form-group">
 		    <label>副标题</label>
-		    <input type="text" name="subtitle" value="副标题"  class="form-control" placeholder="副标题">
+		    <input type="text" name="subtitle" value="{{ aitem.subtitle }}"  class="form-control" placeholder="副标题">
 		  </div>
 		  <div class="form-group">
 		  	<label>内容简介</label>
-		  	<textarea class="form-control"  name="brief" rows="3" placeholder="内容简介">内容简介</textarea>
+		  	<textarea class="form-control"  name="brief" rows="3" placeholder="内容简介">{{ aitem.brief }}</textarea>
 		  </div>
 		  <div class="form-group">
 		  	<label>编辑主题</label>
-		  	<script id="editor" name="content" type="text/plain">编辑主题</script>
+		  	<script id="editor" type="text/plain">{{aitem.content|safe}}</script>
 		  </div>
 		</div>
 		<div class="form-right col-md-3">
 		  <div class="form-group">
 		    <label>关键字</label>
-		    <input type="text" name="key" value="关键字" class="form-control" placeholder="关键字">
+		    <input type="text" name="key" value="{{ aitem.key }}" class="form-control" placeholder="关键字">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputFile">选择分类</label>
 		    <select name="category_id" class="form-control">
 		    	{% for v in classfiy %}
-			  	<option value="{{ v.id }}">{{ v.list_title }}</option>
+			  	<option value="{{ v.id }}" {% if v.id==aitem.category.id %} selected {% endif %}>{{ v.list_title }}</option>
 			  	{% endfor %}
 			</select>
 		  </div>
 		  <div class="form-group">
 		  	<label>发表时间</label>
-		  	 <input type="datetime-local" name="date" value="" class="form-control" placeholder="关键字">
+		  	 <input type="datetime-local" name="date" value="{{ aitem.date }}" class="form-control" placeholder="关键字">
 		  </div>
 		  <div class="form-group">
 		  	<button type="submit" class="btn btn-primary btn-lg btn-block">提交</button>
@@ -52,9 +52,10 @@
 </div>
 </div>
 <script type="text/javascript">
-    var ue = UE.getEditor('editor', {
-        serverUrl: '/upload/'
-    });
-    
+	$(function(){
+		var ue = UE.getEditor('editor', {
+        serverUrl: '/upload/',
+	    });
+	})
 </script>
 {% endblock %}

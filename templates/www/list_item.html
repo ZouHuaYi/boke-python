@@ -12,29 +12,17 @@
 	        </tr>
 	      </thead>
 	      <tbody>
+
 	      	{% for v in listdata %}
 	        <tr>
 	          <th scope="row"><input type="checkbox" class="b_list">{{v.id}}</th>
 	          <td>{{v.title}}</td>
-	          <td>{{v.category}}类型</td>
+	          <td>{{v.category.list_title}}</td>
 	          <td>{{v.date}}</td>
-	          <td><a class="btn btn-primary btn-sm">修改</a>&nbsp;<a class="btn btn-danger btn-sm">删除</a></td>
+	          <td><a href="{{ url_for('amend',a_id=v.id) }}" class="btn btn-primary btn-sm">修改</a>&nbsp;<a href="{{ url_for('delete',l_id=v.category.id,d_id=v.id) }}" class="btn btn-danger btn-sm">删除</a></td>
 	        </tr>
 	        {% endfor %}
-	         <tr>
-	          <th scope="row"><input type="checkbox" class="b_list">1</th>
-	          <td>简洁、直观、强悍的前端开发框架，让web开发更迅速、简单。</td>
-	          <td>php/javascript类型</td>
-	          <td>2017/12/25</td>
-	          <td><a class="btn btn-primary btn-sm">修改</a>&nbsp;<a class="btn btn-danger btn-sm">删除</a></td>
-	        </tr>
-	         <tr>
-	          <th scope="row"><input type="checkbox" class="b_list">1</th>
-	          <td>简洁、直观、强悍的前端开发框架，让web开发更迅速、简单。</td>
-	          <td>php/javascript类型</td>
-	          <td>2017/12/25</td>
-	          <td><a class="btn btn-primary btn-sm">修改</a>&nbsp;<a class="btn btn-danger btn-sm">删除</a></td>
-	        </tr>
+
 	      </tbody>
 	    </table>
 	    <nav aria-label="Page navigation">
