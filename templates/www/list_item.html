@@ -1,4 +1,5 @@
 {% extends 'www/admin.html' %}
+{% import 'www/page.html' as page %}
 {% block adtitle %}全部主题{% endblock %}
 {% block adbody %}
 		<table class="table table-hover">
@@ -13,28 +14,18 @@
 	      </thead>
 	      <tbody>
 
-	      	{% for v in listdata %}
+	      	{% for v in listdata.items %}
 	        <tr>
 	          <th scope="row"><input type="checkbox" class="b_list">{{v.id}}</th>
 	          <td>{{v.title}}</td>
 	          <td>{{v.category.list_title}}</td>
 	          <td>{{v.date}}</td>
-	          <td><a href="{{ url_for('amend',a_id=v.id) }}" class="btn btn-primary btn-sm">修改</a>&nbsp;<a href="{{ url_for('delete',l_id=v.category.id,d_id=v.id) }}" class="btn btn-danger btn-sm">删除</a></td>
+	          <td><a href="{{ url_for('amend',a_id=v.id) }}" class="btn btn-primary btn-sm">修改</a>&nbsp;<a href="{{ url_for('delete',l_id=v.category.key_str,d_id=v.id,b_id=listdata.page) }}" class="btn btn-danger btn-sm">删除</a></td>
 	        </tr>
 	        {% endfor %}
 
 	      </tbody>
 	    </table>
-	    <nav aria-label="Page navigation">
-		  <ul class="pagination">
-		    <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-		  </ul>
-		</nav>
+	    {{ page.render_pagination(listdata,'admin',lid) }}
 	</div>
 {% endblock %}

@@ -6,7 +6,7 @@
 			<div class="list-group col-lg-2 col-md-2" >
 				<h3 class="list-group-item active">全部分类</h3>
 			{% for v in classfiy %}
-			  <a href="{{url_for('admin',lid=v.id)}}" class="list-group-item">{{ v.list_title }}</a>
+			  <a href="{{url_for('admin',lid=v.key_str)}}" class="list-group-item {% if(v.height_light == 1 ) %}active{% endif %}">{{ v.list_title }}</a>
 			{% endfor %}
 			</div>
 			<div class="table-list col-lg-10 col-md-10">

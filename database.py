@@ -2,7 +2,6 @@
 
 
 from exit import db
-from datetime import datetime
  
 #基础数据库 可以省掉子类的 __table_args__ 了
 class Base (db.Model):
@@ -29,9 +28,9 @@ class Article(Base):
 		subtitle = db.Column(db.String(150))
 		brief = db.Column(db.String(255))
 		content =db.Column(db.Text) 
-		date = db.Column(db.DateTime,nullable = False,onupdate=datetime.now)
+		date = db.Column(db.TIMESTAMP,server_default=db.func.now())
 		key = db.Column(db.String(30))
-		volume = db.Column(db.Integer,nullable = False,server_default=db.text('0'))
+		volume = db.Column(db.Integer,nullable = False,server_default='0')
 		category_id = db.Column(db.Integer,db.ForeignKey("classfiy.id"))
 		category = db.relationship("Classfiy",backref=db.backref('articles'))
 
@@ -40,10 +39,10 @@ class Classfiy(db.Model):
 			"""文章分类的表"""
 			__tablename__ = 'classfiy'
 			id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-			p_id = db.Column(db.Integer,primary_key=True)
+			p_id = db.Column(db.Integer,primary_key=True,server_default='0')
 			list_title = db.Column(db.String(30),nullable=False)
-			key_str = db.Column(db.String(30),nullable=False) 
-			height_light = db.Column(db.Integer)
+			key_str = db.Column(db.String(30),nullable=False,unique=True,index=True) 
+			height_light = db.Column(db.Integer,server_default='0')
 
 	
 

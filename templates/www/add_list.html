@@ -6,7 +6,7 @@
 			<div class="list-group col-lg-2 col-md-2" >
 				<h3 class="list-group-item active">全部分类</h3>
 			{% for v in classfiy %}
-			  <a href="{{url_for('admin',lid=v.id)}}" class="list-group-item">{{ v.list_title }}</a>
+			  <a href="{{url_for('admin',lid=v.key_str)}}" class="list-group-item">{{ v.list_title }}</a>
 			{% endfor %}
 			</div>
 			<div class="table-list col-lg-10 col-md-10">
@@ -17,16 +17,17 @@
 				        <li><a class="list-head" href="javascript:;">所有分类</a></li>
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right">
-				       	<li><a href="{{ url_for('add_item') }}" class="btn btn-default">添加分类</a></li>
+				       	<li><a href="{{ url_for('adclass') }}" class="btn btn-default">添加分类</a></li>
 				      </ul>
 				    </div>
 				  </div>
 				</nav>
 			<div class="">
 				<ul class="list-group">
+				{% for v in classfiy %}	
 				  <li class="list-group-item clearfix">
-				  	<span style="line-height: 34px;font-size: 26px;padding-left: 60px">MySQL</span>
-				  	<span style="color: red">( mysql )</span>
+				  	<span style="line-height: 34px;font-size: 26px;padding-left: 60px">{{ v.list_title }}</span>
+				  	<span style="color: red">( {{ v.key_str }} )</span>
 				  	<div class="nav navbar-nav pull-left">
 					  	<a href="javascript:;" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">下级<span class="caret"></span></a>
 				          <ul class="dropdown-menu">
@@ -39,21 +40,7 @@
 					  	<a class="btn btn-danger">删除</a>
 					</div>
 				  </li>
-				   <li class="list-group-item clearfix">
-				  	<span style="line-height: 34px;font-size: 26px;padding-left: 60px">MySQL</span>
-				  	<span style="color: red">( mysql )</span>
-				  	<div class="nav navbar-nav pull-left">
-					  	<a href="javascript:;" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">下级<span class="caret"></span></a>
-				          <ul class="dropdown-menu">
-				            <li><a href="#">Action</a></li>
-				          </ul>
-					</div>
-				  	<div class="pull-right">
-					  	<a class="btn btn-primary">修改</a>
-					  	<a class="btn btn-success">添加下级</a>
-					  	<a class="btn btn-danger">删除</a>
-					</div>
-				  </li>
+				  {% endfor %}
 				</ul>
 			</div>
 		</div>
