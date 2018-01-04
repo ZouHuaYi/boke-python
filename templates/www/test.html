@@ -1,0 +1,11 @@
+{% for value in sl["id"].values() %}
+	{% if value.p_id ==0 %}
+	<p>{{value.list_title}}</p>
+		{% if sl["son"][value.id] %}
+			这是第二级
+			{% for vl in sl["son"][value.id] %}
+			<p>{{ sl["id"][vl].list_title }}</p>
+			{% endfor %}
+		{% endif %}
+	{% endif %}
+{% endfor %}

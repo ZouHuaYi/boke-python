@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dropzone.css') }}">
+	<script type="text/javascript" src="{{ url_for('static',filename='js/dropzone.js') }}"></script>
 	{% block head %} {% endblock %}
 </head>
 <body>
@@ -21,9 +23,9 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		        <li class="active"><a href="{{url_for('admin',lid='all')}}">首页<span class="sr-only">(current)</span></a></li>
-		        <li><a href="{{ url_for('admin',lid='all') }}">分类管理</a></li>
+		        <li><a href="{{ url_for('add_list') }}">分类管理</a></li>
 		        <li><a href="{{url_for('adclass')}}">添加分类</a></li>
-		        <li><a href="#">图片上传</a></li>
+		        <li><a href="javascript:;" id="upImages">图片上传</a></li>
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li>
@@ -43,8 +45,21 @@
 		{% block body %} {% endblock %}
 	</div>
 	</div>
+	<div class="up-img" id="makUp">
+		<form action="{{ url_for('upload_file') }}" class="dropzone" method="POST" enctype="multipart/form-data"></form>
+		<a class="close-up" id="closeUp" href="javascript:;"><img src="{{url_for('static',filename='img/close.png')}}"></a>
+	</div>
 	<div class="footer">
 		{% block footer %} {% endblock %}
 	</div>
 </body>
+<script type="text/javascript">
+	var mak = $("#makUp");
+	$("#upImages").on("click",function(){
+		mak.show().find('.dropzone').removeClass('dz-started');
+	})
+	$("#closeUp").on("click",function(){
+		mak.hide().find(".dz-preview").remove();
+	})
+</script>
 </html>

@@ -1,6 +1,6 @@
 @charset:"utf8";
 body,html,ul,li,h1,h2,h3,h4,h5,h6,p{margin: 0;padding: 0;}
-
+img{border: none;}
 
 /*登录页的页面*/
 #login{position: fixed;top: 40%;left: 50%;max-width: 300px;width: 100%;background: #4AD5FF;height: 300px;margin-left: -150px;margin-top: -150px;padding-top: 15px;padding-bottom: 15px;}
@@ -8,3 +8,9 @@ body,html,ul,li,h1,h2,h3,h4,h5,h6,p{margin: 0;padding: 0;}
 #admin .b_list{vertical-align: top;margin-right:10px; }
 .table-list a.list-head{font-size: 30px;}
 #editor{width: 100%;height: 600px;}
+/*上传页的主要样式*/
+.up-img{position: fixed;width: 560px;height: 400px;background: #ddd;left: 50%;top: 50%;margin-left: -250px;margin-top: -200px;display: none;}
+.up-img .dropzone{margin: 20px;width: 520px;height: 360px;overflow-x: auto;}
+.up-img .dropzone .dz-message{font-size: 30px}
+.close-up{position: absolute;top:0;right: 0px;width: 20px;height: 20px;background: rgba(0,0,0,0.7)}
+.close-up img{display: block;width: 100%;height: 100%;}

@@ -43,8 +43,6 @@ class Classfiy(db.Model):
 			list_title = db.Column(db.String(30),nullable=False)
 			key_str = db.Column(db.String(30),nullable=False,unique=True,index=True) 
 			height_light = db.Column(db.Integer,server_default='0')
-
-	
-
-
+			
+			
 

@@ -1,13 +1,10 @@
 {% extends 'www/layout.html' %}
-
+{% import 'www/r_list.html' as list %}
 {% block body %}
 	<div class="box">
 		<div class="container-fluid">
 			<div class="list-group col-lg-2 col-md-2" >
-				<h3 class="list-group-item active">全部分类</h3>
-			{% for v in classfiy %}
-			  <a href="{{url_for('admin',lid=v.key_str)}}" class="list-group-item">{{ v.list_title }}</a>
-			{% endfor %}
+				{{ list.render_list(classfiy,lid) }}
 			</div>
 			<div class="table-list col-lg-10 col-md-10">
 				<nav class="navbar navbar-default">
@@ -24,15 +21,20 @@
 				</nav>
 			<div class="">
 				<ul class="list-group">
-				{% for v in classfiy %}	
+				{% for value in classfiy["id"].values() %}	
+				{% if value.p_id ==0 %}
 				  <li class="list-group-item clearfix">
-				  	<span style="line-height: 34px;font-size: 26px;padding-left: 60px">{{ v.list_title }}</span>
-				  	<span style="color: red">( {{ v.key_str }} )</span>
+				  	<span style="line-height: 34px;font-size: 26px;padding-left: 60px">{{ value.list_title }}</span>
+				  	<span style="color: red">( {{ value.key_str }} )</span>
 				  	<div class="nav navbar-nav pull-left">
 					  	<a href="javascript:;" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">下级<span class="caret"></span></a>
-				          <ul class="dropdown-menu">
-				            <li><a href="#">Action</a></li>
-				          </ul>
+					  	{% if classfiy["son"][value.id] %}
+				          	<ul class="dropdown-menu">
+					          	{% for vl in classfiy["son"][value.id] %}
+					            <li><a href="#">{{ classfiy['id'][vl].list_title }}</a></li>
+					             {% endfor %}
+				          	</ul>
+				        {% endif %}
 					</div>
 				  	<div class="pull-right">
 					  	<a class="btn btn-primary">修改</a>
@@ -40,6 +42,7 @@
 					  	<a class="btn btn-danger">删除</a>
 					</div>
 				  </li>
+				  {% endif %}
 				  {% endfor %}
 				</ul>
 			</div>
