@@ -23,4 +23,4 @@ SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
 #上传文件的路径
 ROOT_PATH =  os.getcwd().replace('\\','\/') 
-UPLOADED_PATH = ROOT_PATH+'/upload'
+UPLOADED_PATH = r'%s/%s/%s'%(ROOT_PATH,r'static',r'upload')

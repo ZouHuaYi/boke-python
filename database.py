@@ -44,5 +44,22 @@ class Classfiy(db.Model):
 			key_str = db.Column(db.String(30),nullable=False,unique=True,index=True) 
 			height_light = db.Column(db.Integer,server_default='0')
 			
-			
+#图片库
+class Picture(Base):
+			"""存储图片"""
+			__tablename__ = 'picture'
+			id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+			big_pic = db.Column(db.String(100))
+			thumb_pic = db.Column(db.String(100))
 
+			def __init__(self,big_pic,thumb_pic):
+				self.big_pic = big_pic
+				self.thumb_pic = thumb_pic 
+
+			def db_add(self,result):
+				try:
+					db.session.add(result)
+					db.session.commit()
+				except Exception as e:
+					db.session.rollback()
+					raise e
